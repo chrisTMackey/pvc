@@ -1,8 +1,8 @@
 def main():
-    sample_formula = [(100, 1.4, 0.475), (28, 0.973, 0.92), (7.5, 1.008, 1.56),
+    sample_formula = [(100, 1.4, 0.475), (60, 0.973, 0.92), (7.5, 1.008, 1.56),
                       (20, 2.71, 0.0625)]
     spg, cost_wt, cost_vol = spg_costs(sample_formula)
-    duro = durometer_dinp(28)
+    duro = durometer_dinp(60)
     print('{} specific gravity'.format(spg))
     print('${} per pound'.format(cost_wt))
     print('${} per volume'.format(cost_vol))
