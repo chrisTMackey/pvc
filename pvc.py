@@ -63,6 +63,7 @@ def main():
     #use it much anymore in the industry.
     #We switch to the D Shore durometer, a specialty of mine.
     #Public data is lacking there, but a D Shore durometer function is
+    #being developed.
     #
     #Note that at the moment this does not account for any filler contribution
     #to hardness.
@@ -73,7 +74,8 @@ def main():
     #university to contribute to the field, open source software, and his / her
     #resume.
     #Note that this data is available, but it is the property of the
-    #compounding companies that generate it and they don't care to publish it.
+    #compounding companies that generate it and they don't care to publish it,
+    #nor I republish it.
     #If you would like a custom installation of this software based on your
     #data, that can be arranged privately.  Just contact me for consulting.
     
