@@ -17,7 +17,7 @@ Basic set of tools to cost and rapid prototype PVC formulas.
 
 >>>print('${} per volume'.format(cost_vol))
 
->>>print(duro, 'A Shore Durometer @ 15s delay')
+>>>print(hardness, 'A Shore Durometer @ 15s delay')
 
 #Formula Construction
 
