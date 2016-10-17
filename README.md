@@ -19,7 +19,7 @@ Basic set of tools to cost and rapid prototype PVC formulas.
 
 >>>print(duro, 'A Shore Durometer @ 15s delay')
 
-#formula construction
+#Formula Construction
 
 Formulas are lists of lists.
 
@@ -33,7 +33,7 @@ The sub lists must have the following as their first three items.
 
 Note:  You can pass additional information in the list harmlessly.  Only the first three elements are needed to calculate the specific gravity and costs and anything else is ignored.  You can pass additional information and instructions in the formula if you wish.
 
-#durometer functions
+#Durometer Functions
 
 List of supported durometer functions:
 durometer_dop(phr)
@@ -65,4 +65,3 @@ Then simply pass the phr parameter to the proper durometer function to get an es
 Note:  D Shore Durometer is used once you get into the 90's typically.  This isn't programmed into this tool, yet.
 
 Note:  These functions are for unfilled formulas.  Addition of mineral filler (typically CaCO3 calcium carbonate graded by micron particle size) generally raises the durometer or hardness of a formula.  Public data is lacking to build this tool at the moment.  Be weary of using this data on filled formulas with regard to hardness or durometer data.  The costs and the specific gravity will be very accurate but the durometer less so.
-
