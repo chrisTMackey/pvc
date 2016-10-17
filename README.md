@@ -37,19 +37,33 @@ Note:  You can pass additional information in the list harmlessly.  Only the fir
 
 List of supported durometer functions:
 durometer_dop(phr)
+
 durometer_dinp(phr)
+
 durometer_didp(phr)
+
 durometer_doa(phr)
+
 durometer_dina(phr)
+
 durometer_totm(phr)
+
 durometer_tintm(phr)
+
 durometer_dotp(phr)
+
 durometer_dphp(phr)
+
 durometer_dinch(phr)
+
 durometer_711p(phr)
+
 durometer_9p(phr)
+
 durometer_911p(phr)
+
 durometer_dup(phr)
+
 durometer_eso(phr)
 
 These functions take the parameter phr.
@@ -64,4 +78,4 @@ Then simply pass the phr parameter to the proper durometer function to get an es
 
 Note:  D Shore Durometer is used once you get into the 90's typically.  This isn't programmed into this tool, yet.
 
-Note:  These functions are for unfilled formulas.  Addition of mineral filler (typically CaCO3 calcium carbonate graded by micron particle size) generally raises the durometer or hardness of a formula.  Public data is lacking to build this tool at the moment.  Be weary of using this data on filled formulas with regard to hardness or durometer data.  The costs and the specific gravity will be very accurate but the durometer less so.
+Note:  These functions are for unfilled formulas.  Addition of mineral filler (typically calcium carbonate) generally raises the durometer or hardness of a formula.  Public data is lacking to build this tool at the moment.  Be weary of using these durometer tools on filled formulas with regard to hardness or durometer data.  The costs and the specific gravity will be very accurate but the durometer less so.
