@@ -12,8 +12,11 @@ Basic set of tools to cost and rapid prototype PVC formulas.
 >>>hardness = durometer_dinp(60)
 
 >>>print('{} specific gravity'.format(spg))
+
 >>>print('${} per pound'.format(cost_wt))
+
 >>>print('${} per volume'.format(cost_vol))
+
 >>>print(duro, 'A Shore Durometer @ 15s delay')
 
 #formula construction
