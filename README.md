@@ -36,6 +36,7 @@ Note:  You can pass additional information in the list harmlessly.  Only the fir
 #Durometer Functions
 
 List of supported durometer functions:
+
 durometer_dop(phr)
 
 durometer_dinp(phr)
