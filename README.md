@@ -76,6 +76,6 @@ Scale your formula for 100 parts PVC resin and then scale the plasticizer approp
 
 Then simply pass the phr parameter to the proper durometer function to get an estimate of A Shore Durometer at 15 second delay.
 
-Note:  D Shore Durometer is used once you get into the 90's typically.  This isn't programmed into this tool, yet.
+Note:  D Shore Durometer is used once you get above 90 A Shore @ 15s.  This isn't programmed into this tool, yet.
 
 Note:  These functions are for unfilled formulas.  Addition of mineral filler (typically calcium carbonate) generally raises the durometer or hardness of a formula.  Public data is lacking to build this tool at the moment.  Be weary of using these durometer tools on filled formulas with regard to hardness or durometer data.  The costs and the specific gravity will be very accurate but the durometer less so.
