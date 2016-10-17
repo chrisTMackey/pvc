@@ -1,3 +1,26 @@
+"""pvc:   Tools for costing and rapid prototyping of PVC formulas.
+    Copyright (C) 2016  Chris T. Mackey
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    
+    To contribute to this code, for questions, custom installations,
+    or polymer consulting contact me via email or github.
+    
+    chris.t.mackey AT gmail DOT com
+    https://github.com/chrisTMackey
+    """
+
 def main():
     """Demo function to show usage
 
@@ -102,7 +125,8 @@ def spg_costs(formula):
     Will return a tuple with 3 values.
     1:  specific gravity of your compound,
     2:  cost per pound of your compound, and
-    3:  cost per volume of your compound."""
+    3:  cost per volume of your compound.
+    """
 
     recipe = []
     sum_phr = sum_pound_volumes = sum_costs = 0
