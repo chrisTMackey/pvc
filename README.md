@@ -7,9 +7,9 @@ Basic set of tools to cost and rapid prototype PVC formulas.
 
 >>>your_formula = [[100, 1.4, 0.5225], [60, 0.973, 0.92], [7.5, 1.008, 1.56], [20, 2.71, 0.0625]]
 
->>>spg, cost_wt, cost_vol = spg_costs(your_formula)
+>>>spg, cost_wt, cost_vol = pvc.spg_costs(your_formula)
 
->>>hardness = durometer_dinp(60)
+>>>hardness = pvc.durometer_dinp(60)
 
 >>>print('{} specific gravity'.format(spg))
 
