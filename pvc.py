@@ -22,6 +22,8 @@
     """
 
 def main():
+    """demo function to display usage"""
+    
     sample_formula = [(100, 1.4, 0.475), (28, 0.973, 0.92), (7.5, 1.008, 1.56),
                       (20, 2.71, 0.0625)]
     spg, cost_wt, cost_vol = spg_costs(sample_formula)
