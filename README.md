@@ -1,3 +1,7 @@
+A working project still in process.  
+
+Apologies for the mess
+
 # pvc
 
 Basic set of tools to cost and rapid prototype PVC formulas.
@@ -9,15 +13,11 @@ Basic set of tools to cost and rapid prototype PVC formulas.
 
 >>>spg, cost_wt, cost_vol = pvc.spg_costs(your_formula)
 
->>>hardness = pvc.durometer_dinp(60)
-
 >>>print('{} specific gravity'.format(spg))
 
 >>>print('${} per pound'.format(cost_wt))
 
 >>>print('${} per volume'.format(cost_vol))
-
->>>print(hardness, 'A Shore Durometer @ 15s delay')
 
 #Formula Construction
 
@@ -33,50 +33,3 @@ The sub lists must have the following as their first three items.
 
 Note:  You can pass additional information in the list harmlessly.  Only the first three elements are needed to calculate the specific gravity and costs and anything else is ignored.  You can pass additional information and instructions in the formula if you wish.
 
-#Durometer Functions
-
-List of supported durometer functions:
-
-durometer_dop(phr)
-
-durometer_dinp(phr)
-
-durometer_didp(phr)
-
-durometer_doa(phr)
-
-durometer_dina(phr)
-
-durometer_totm(phr)
-
-durometer_tintm(phr)
-
-durometer_dotp(phr)
-
-durometer_dphp(phr)
-
-durometer_dinch(phr)
-
-durometer_711p(phr)
-
-durometer_9p(phr)
-
-durometer_911p(phr)
-
-durometer_dup(phr)
-
-durometer_eso(phr)
-
-These functions take the parameter phr.
-
-PHR stands for Per Hundred Resin (or Rubber for that industry).
-
-All plastic and rubber formulas are written this way.
-
-Scale your formula for 100 parts PVC resin and then scale the plasticizer appropriately to convert it to phr.
-
-Then simply pass the phr parameter to the proper durometer function to get an estimate of A Shore Durometer at 15 second delay.
-
-Note:  D Shore Durometer is used once you get above 90 A Shore @ 15s.  This isn't programmed into this tool, yet.
-
-Note:  These functions are for unfilled formulas.  Addition of mineral filler (typically calcium carbonate) generally raises the durometer or hardness of a formula.  Public data is lacking to build this tool at the moment.  Be weary of using these durometer tools on filled formulas with regard to hardness or durometer data.  The costs and the specific gravity will be very accurate but the durometer less so.
