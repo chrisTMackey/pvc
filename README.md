@@ -67,19 +67,33 @@ The clear flexible formulation data for the physical properties other than speic
 Here are the currently supported plasticizer functions.
 
 flex_clear_dop(phr)
+
 flex_clear_dinp(phr)
+
 flex_clear_didp(phr)
+
 flex_clear_doa(phr)
+
 flex_clear_dina(phr)
+
 flex_clear_totm(phr)
+
 flex_clear_tintm(phr)
+
 flex_clear_dotp(phr)
+
 flex_clear_dphp(phr)
+
 flex_clear_dinch(phr)
+
 flex_clear_711p(phr)
+
 flex_clear_9p(phr)
+
 flex_clear_911p(phr)
+
 flex_clear_dup(phr)
+
 flex_clear_eso(phr)
 
 Running that function will return a tuple with the following information (duro, modulus, tensile, elongation, clashberg, brittle).
@@ -99,10 +113,17 @@ Modulus, Tensile, Elongation, Clash-Berg, and Brittleness produce decent results
 
 In the industry, it is common to not use the A Shore Durometer once you get above 90 A Shore.  We switch to the D Shore Durometer.  There is very little data out there to build a D Shore Durometer data set to build a regression from.  The chart lists conversions from A to D for A Shore 100 and less.  Obviously I used that for the duro_AtoD(duro_A) functions.  For points inbetween on the charts, it is a straight linear regression point to point at the moment.
 
-A Shore Durometer stops readings above 100, yet my tool will return readings up to nearly 120.  Why, well that is the slope of the line where it intercepts at 0 PHR plasticizer.  In theory they should all hit the same exact durometer at 0 PHR, but my formulas don't as a different intercept and slope in the Y=mX+b format.  
+A Shore Durometer stops readings above 100, yet my tool will return readings up to nearly 120.  Why, well that is the slope of the line where it intercepts at 0 PHR plasticizer.  In theory they should all hit the same exact durometer at 0 PHR, but my formulas don't as a different intercept and slope in the Y=mX+b format fits the data better.  
 
-I wrote the duro_AtoD(duro_A) converter for values above 100 A Shore by referring to PVC pipe formulas.  PVC pipe is roughly 83-84 D Shore or maybe 80 D Shore if it is impact modified.  So I wanted to set the 0 PHR's to return a value around 83-84 D Shore and just a bit of plasticizer to return 80 D.  Right now the function pretty much does that and it does hit other D Shore formulations I have ran in business with in typical lab specification of +/- 3 Durometer points.
+I wrote the duro_AtoD(duro_A) converter for values above 100 A Shore by referring to PVC pipe formulas.  PVC pipe is roughly 83-84 D Shore or maybe 80 D Shore if it is impact modified.  So I wanted to set the 0 PHR's to return a value around 83-84 D Shore and just a bit of plasticizer to return 80 D.  Right now the function pretty much does that and it does hit other D Shore formulations I have ran in business with in typical lab specification of +/- 3 Durometer points.  
 
+In theory I shouldn't scale down from a common intercept but one specific to the plasticizer, but I'll program that when somebody needs it.  I have bigger ideas for rigid formulation than an A to D Durometer converter anyways.
+
+Note that all data for this project was found in the public domain from varying labs, authors, and companies over the decades.  Data is sparse in some locations.  
+
+In business, you would run this software on your data and develop better models.  You wouldn't publish those models though and if you were a former employee of them, you shouldn't either, hence the public data.  
+
+I have vetted all the data that goes into the regression models to determine the math.  Big thanks to BASF, ExxonMobil, Dr. Dick Grossman, and Jesse Edenbaum for paving the way and publishing quality data.
 
 #Formula Construction
 
