@@ -6,7 +6,7 @@ Apologies for the mess
 
 Basic set of tools to cost and rapid prototype PVC formulas.
 
-#Usage:
+#Basic Usage:
 >>>import pvc
 
 >>>your_formula = [[100, 1.4, 0.5225], [60, 0.973, 0.92], [7.5, 1.008, 1.56], [20, 2.71, 0.0625]]
@@ -31,38 +31,13 @@ Durometer, or hardness, is the next most common physical property.  Fortunately 
 
 To determine the durometer of a formula you need to pass the PHR amound of plasticizer to the flex_clear_PLASTICIZER_NAME_HERE function.
 
-Note that PHR is not pounds and it is not percent.
+#More Physical Properties Prediction
 
-PHR stands for Per Hundred Resin (or per hundred rubber if that is your thing).
+>>>flex_clear_dinp(28)
 
-You need to scale your formula to use 100 parts of resin and then the proportional amount of all other ingredients.
+That will return the remaining physical properties for the compound with 28 parts or PHR DINP Plasticizer.
 
-For example.  If your formula was 300 pounds of PVC, 90 pounds of DINP plasticizer, 9 pounds of BaZn heat stabilizer / lube blend, and 60 pounds of CaCO3 filler.
-
-In that case you have 300 pounds of resin.  To make it 100 pounds you need to scale down the formula by dividing all the ingredient amounts by 3.
-
-That would give you this formula.  100 PHR PVC resin, 30 PHR DINP plasticizer, 3 PHR BaZn / lube, and 20 PHR CaCO3 filler.
-
-Once you have your formula in PHR terms, it is easy.  Just pass the PHR of plasticizer to the function and it will return the A Shore Durometer @ 15 second delay as described in ASTM D2240.  Note from the name of the function, flex_clear_dinp(phr) in the case of DINP plasticizer, that that is for a clear formula.  If you are using filler, which the sample formula was with 20 PHR CaCO3 calcium carbonate filler, it won't be clear.  The formula will be filled and cloudy or opaque.
-
-To account for filler you need to use the flex_filled(duro_A, phr_CaCO3) function.
-
-That function takes 2 parameters.
-
-1. The durometer, or hardness, A Shore reading that you determined from the previous function ( flex_clear_dinp(30) would return a tuple; the first or zeroth value in that tuple is the A Shore Durometer calculation).
-2.  The phr_CaCO3 parameter is PHR of CaCO3 filler, in this example it was 20 PHR calcium carbonate filler.
-
-So you would pass the following to take the clear durometer reading and make it a filled reading.
-
-flex_filled(80, 20) 
-
-That would take a formula that you know to be 80 A Shore in a clear formula and will calculate out the A Shore Durometer for the same formula but with 20 PHR of Calcium Carbonate Filler.
-
-Unfortunately I do not have good data for modifying the other properties in filled formulations.
-
-I don't expect too either.
-
-The clear flexible formulation data for the physical properties other than speicific gravity and durometer all fall between 0.500 and 0.900 r squared on their best regression model.  Decent data, but not dry lab worthy so to speak.  You add filler to those mixes and you have a bigger problem than bad clear data when you factor in the various filler sizes and particle shapes.  An experienced formulator will still find use from seeing the projected clear properties though as they will know how filler will impact each property.
+Each plasticizer gets its own function as the data is based on unique plasticzer (and later filler) combinations.
 
 Here are the currently supported plasticizer functions.
 
@@ -96,7 +71,9 @@ flex_clear_dup(phr)
 
 flex_clear_eso(phr)
 
-Running that function will return a tuple with the following information (duro, modulus, tensile, elongation, clashberg, brittle).
+>>>flex_clear_dinp(80)
+
+Running that function will return a tuple with the following information (duro, modulus, tensile, elongation, clashberg, brittle) for a flexible clear PVC formulation with 80 parts or 80 PHR of DINP Plasticizer.
 
 Specifically those are the following physical properties of the compound at the PHR parameter of the chosen plasticizer.
 
@@ -111,6 +88,44 @@ Only the A Shore Durometer has an r squared of over 0.900.  Fortunately, or mayb
 
 Modulus, Tensile, Elongation, Clash-Berg, and Brittleness produce decent results in the range of say 40 - 80 PHR plasticizer as that is what most of the data is based on.  You get outside of that range and you are not interpolating data, you are extrapolating and you can get some bad results.  Use this data at your own risk.
 
+
+
+#PHR does not equal Pounds or Percent, it means Per Hundred Resin
+Note that PHR is not pounds and it is not percent.
+
+PHR stands for Per Hundred Resin (or per hundred rubber if that is your thing).
+
+You need to scale your formula to use 100 parts of resin and then the proportional amount of all other ingredients.
+
+For example.  If your formula was 300 pounds of PVC, 90 pounds of DINP plasticizer, 9 pounds of BaZn heat stabilizer / lube blend, and 60 pounds of CaCO3 filler.
+
+In that case you have 300 pounds of resin.  To make it 100 pounds you need to scale down the formula by dividing all the ingredient amounts by 3.
+
+That would give you this formula.  100 PHR PVC resin, 30 PHR DINP plasticizer, 3 PHR BaZn / lube, and 20 PHR CaCO3 filler.
+
+Once you have your formula in PHR terms, it is easy.  Just pass the PHR of plasticizer to the function and it will return the A Shore Durometer @ 15 second delay as described in ASTM D2240.  Note from the name of the function, flex_clear_dinp(phr) in the case of DINP plasticizer, that that is for a clear formula.  If you are using filler, which the sample formula was with 20 PHR CaCO3 calcium carbonate filler, it won't be clear.  The formula will be filled and cloudy or opaque.
+
+#Accounting for Filler
+To account for filler you need to use the flex_filled(duro_A, phr_CaCO3) function.  Basically figure out the durometer of the formula without the filler then pass that and the PHR of the filler to the flex_filled() and it will do all the math for you.
+
+That function takes 2 parameters.
+
+1. The durometer, or hardness, A Shore reading that you determined from the previous function ( flex_clear_dinp(30) would return a tuple; the first or zeroth value in that tuple is the A Shore Durometer calculation).
+2.  The phr_CaCO3 parameter is PHR of CaCO3 filler, in this example it was 20 PHR calcium carbonate filler.
+
+So you would pass the following to take the clear durometer reading and make it a filled reading.
+
+flex_filled(80, 20) 
+
+That would take a formula that you know to be 80 A Shore in a clear formula and will calculate out the A Shore Durometer for the same formula but with 20 PHR of Calcium Carbonate Filler.  This is some of the best data I have with an r squared of 0.992.  I'd still be cautious using it above 100 A Shore or on the D Shore scale.
+
+Unfortunately I do not have good data for modifying the other properties in filled formulations.
+
+I don't expect too either.
+
+The clear flexible formulation data for the physical properties other than speicific gravity and durometer all fall between 0.500 and 0.900 r squared on their best regression model.  Decent data, but not dry lab worthy so to speak.  You add filler to those mixes and you have a bigger problem than bad clear data when you factor in the various filler sizes and particle shapes.  An experienced formulator will still find use from seeing the projected clear properties though as they will know how filler will impact each property.
+
+#D Shore Durometer
 In the industry, it is common to not use the A Shore Durometer once you get above 90 A Shore.  We switch to the D Shore Durometer.  There is very little data out there to build a D Shore Durometer data set to build a regression from.  The chart lists conversions from A to D for A Shore 100 and less.  Obviously I used that for the duro_AtoD(duro_A) functions.  For points inbetween on the charts, it is a straight linear regression point to point at the moment.
 
 A Shore Durometer stops readings above 100, yet my tool will return readings up to nearly 120.  Why, well that is the slope of the line where it intercepts at 0 PHR plasticizer.  In theory they should all hit the same exact durometer at 0 PHR, but my formulas don't as a different intercept and slope in the Y=mX+b format fits the data better.  
@@ -139,3 +154,19 @@ The sub lists must have the following as their first three items.
 
 Note:  You can pass additional information in the list harmlessly.  Only the first three elements are needed to calculate the specific gravity and costs and anything else is ignored.  You can pass additional information and instructions in the formula if you wish.
 
+#What Next
+From here you can do quite a bit.
+
+You can search millions of potential formula combinations in seconds (well maybe minutes for millions; I get about 250,000 in 4 seconds or so on my PC).  
+
+From there you can screen hundreds of thousands of potential formulas for lowest cost (always lowest volume cost) given a set of properties.  
+
+From there you can issue a few screening formulas to the lab to whip up and confirm the properties if you don't have a similar formula already in production.
+
+I have written the optimization routines already, just haven't uploaded them yet.  
+
+Same thing for graphing.  Right now no graphing capability is built in, but I use Mathplotlib to plot and this works with that no problem, just like any data.  
+
+I plan on implementing a graphing function for common use cases, but that isn't a high priority at the moment.
+
+Next big step is to flip it though.  These are all flexible PVC at the moment.  Rigid PVC is big business, even bigger than flexible.  Different way of formulating really in rigid.  Still doing it all with PHR's and the like, but instead of plasticizer you are looking at impact modifiers.  Instead of wondering how much filler you are using, you are wondering about how much and what particle size are you looking at.  Some of the nano filler precipitated calcium carbonates (PCC's) work as impact modifiers which leads to an interesting economics vs performance trade off that this program excels in calculating.
