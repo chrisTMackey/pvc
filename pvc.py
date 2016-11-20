@@ -19,13 +19,15 @@
     
     chris.t.mackey AT gmail DOT com
     https://github.com/chrisTMackey
+
+    version 0.0.0-11.20.16
     """
 
 def main():
     """demo function to display usage"""
     
     sample_formula = [(100, 1.4, 0.475), (28, 0.973, 0.92), (7.5, 1.008, 1.56),
-                      (20, 2.71, 0.0625)]
+                      (0, 2.71, 0.0625)]
     spg, cost_wt, cost_vol = spg_costs(sample_formula)
     duro, modulus, tensile, elongation, clashberg, brittle = flex_clear_dinp(28)
     print('${} per pound'.format(cost_wt))
@@ -81,11 +83,11 @@ def flex_clear_dop(phr):
 
 def flex_clear_dinp(phr):
     duro = round(113.8 - 0.6*phr, 1)
-    modulus = round(3559.1-34.78*phr)
-    tensile = round(4414.8-28.7*phr)
-    elongation = round(248.6+1.61*phr)
-    clashberg = round(14.23-0.76*phr, 1)
-    brittle = round(-4.19-0.55*phr, 1)
+    modulus = round(3559.1 - 34.78*phr)
+    tensile = round(4414.8 - 28.7*phr)
+    elongation = round(248.6 + 1.61*phr)
+    clashberg = round(14.23 - 0.76*phr, 1)
+    brittle = round(-4.19 - 0.55*phr, 1)
     output = (duro, modulus, tensile, elongation, clashberg, brittle)
     return output
 
@@ -212,11 +214,11 @@ def flex_clear_dup(phr):
 def flex_clear_eso(phr):
     eso_in_dop = phr/1.1
     duro = round(111 - 0.627*eso_in_dop, 1)
-    modulus = round(3548-36.56*eso_in_dop)
-    tensile = round(4700.4-34.41*eso_in_dop)
-    elongation = round(228.5+1.99*eso_in_dop)
-    clashberg = round(15.2-.8*eso_in_dop, 1)
-    brittle = round(-4.41-.57*eso_in_dop, 1)
+    modulus = round(3548-36.56*phr)
+    tensile = round(4700.4-34.41*phr)
+    elongation = round(228.5+1.99*phr)
+    clashberg = round(15.2-.8*phr, 1)
+    brittle = round(-4.41-.57*phr, 1)
     output = (duro, modulus, tensile, elongation, clashberg, brittle)
     return output
 
@@ -239,7 +241,7 @@ def flex_filled(duro_A, phr_CaCO3):
 
 def duro_AtoD(duro_A):
     #converter {k:v, A Shore:D Shore, another set of A/D, so on}
-    converter = {120:84, 115:83.5, 110:75.8, 105:66.8,
+    converter = {120:84, 115:84, 110:75.8, 105:66.8,
                  100:58, 95:46, 90:39, 85:33, 80:29, 75:25, 70:22,
                  65:19, 60:16, 55:14, 50:12, 45:10, 40:8, 35:7, 30:6}
     test_A = (duro_A // 5)*5
@@ -253,6 +255,111 @@ def duro_AtoD(duro_A):
         partial_adjust = total_gap_up * share_gap_up
         output = round(converter[test_A] + partial_adjust, 1)
     return output
+
+def rigid_nano07(phr_filler, phr_impact_modifier):
+    #flexural modulus polynomial r squared = 0.990, n = 16
+    flex_a = 0.0740909091 * phr_filler * phr_filler
+    flex_b = -0.1265714286 * phr_filler * phr_impact_modifier
+    flex_c = 0.265625 * phr_impact_modifier * phr_impact_modifier
+    flex_d = 0.2065324675 * phr_filler
+    flex_e = -9.682321429 * phr_impact_modifier
+    flex_f = 499.1600325
+    flex_mod = round(flex_a + flex_b + flex_c + flex_d + flex_e + flex_f)
+
+    #notched izod polynomial r squared = 0.765, n = 46
+    notch_a = 2.397884026 * phr_filler * phr_filler
+    notch_b = 5.914428509 * phr_filler * phr_impact_modifier
+    notch_c = -1.873679882 * phr_impact_modifier * phr_impact_modifier
+    notch_d = 14.09969499 * phr_filler
+    notch_e = 82.8909861 * phr_impact_modifier
+    notch_f = -183.6350482
+    notch = round(notch_a + notch_b + notch_c + notch_d + notch_e + notch_f)
+    return(flex_mod, notch)
+
+
+def rigid_nano3(phr_filler, phr_impact_modifier):
+    #flexural modulus polynomial r squared = 0.986, n = 16
+    flex_a = 0.0540909091 * phr_filler * phr_filler
+    flex_b = -0.2594285714 * phr_filler * phr_impact_modifier
+    flex_c = 0.0625 * phr_impact_modifier * phr_impact_modifier
+    flex_d = 2.415103896 * phr_filler
+    flex_e = -8.306428571 * phr_impact_modifier
+    flex_f = 498.0761039
+    flex_mod = round(flex_a + flex_b + flex_c + flex_d + flex_e + flex_f)
+
+    #notched izod polynomial r squared = 0.761, n = 16
+    notch_a = -0.2129545455 * phr_filler * phr_filler
+    notch_b = 0.9097142857 * phr_filler * phr_impact_modifier
+    notch_c = -23.34375 * phr_impact_modifier * phr_impact_modifier
+    notch_d = 79.34926623 * phr_filler
+    notch_e = 265.3782143 * phr_impact_modifier
+    notch_f = -344.6062338
+    notch = round(notch_a + notch_b + notch_c + notch_d + notch_e + notch_f)
+    return(flex_mod, notch)
+
+def rigid_nano7(phr_filler, phr_impact_modifier):
+    #flexural modulus polynomial r squared = 0.976, n = 16
+    flex_a = 0.0045454545 * phr_filler * phr_filler
+    flex_b = -1.857142857 * phr_filler * phr_impact_modifier
+    flex_c = 0.09375 * phr_impact_modifier * phr_impact_modifier
+    flex_d = 3.398051948 * phr_filler
+    flex_e = -8.248214286 * phr_impact_modifier
+    flex_f = 497.5230519
+    flex_mod = round(flex_a + flex_b + flex_c + flex_d + flex_e + flex_f)
+
+    #notched izod polynomial r squared = 0.783, n = 16
+    notch_a = 1.348181818 * phr_filler * phr_filler
+    notch_b = 11.25028571 * phr_filler * phr_impact_modifier
+    notch_c = 0.25 * phr_impact_modifier * phr_impact_modifier
+    notch_d = -1.717220779 * phr_filler
+    notch_e = 62.53428571 * phr_impact_modifier
+    notch_f = -68.33922078
+    notch = round(notch_a + notch_b + notch_c + notch_d + notch_e + notch_f)
+    return(flex_mod, notch)
+
+def rigid_2micron(phr_filler, phr_impact_modifier):
+    #flexural modulus polynomial r squared = 0.977, n = 16
+    flex_a = 0.1375 * phr_filler * phr_filler
+    flex_b = 0.085 * phr_filler * phr_impact_modifier
+    flex_c = 0.484375 * phr_impact_modifier * phr_impact_modifier
+    flex_d = 0.3675 * phr_filler
+    flex_e = -10.85625 * phr_impact_modifier
+    flex_f = 498.775
+    flex_mod = round(flex_a + flex_b + flex_c + flex_d + flex_e + flex_f)
+
+    #notched izod polynomial r squared = 0.932, n = 16
+    notch_a = -0.0125 * phr_filler * phr_filler
+    notch_b = -0.765 * phr_filler * phr_impact_modifier
+    notch_c = 0.953125 * phr_impact_modifier * phr_impact_modifier
+    notch_d = 3.8275 * phr_filler
+    notch_e = 12.83125 * phr_impact_modifier
+    notch_f = 73.45
+    notch = round(notch_a + notch_b + notch_c + notch_d + notch_e + notch_f)
+    return(flex_mod, notch)
+
+
+def rigid_3micron(phr_filler, phr_impact_modifier):
+    #flexural modulus polynomial r squared = 0.995, n = 16
+    flex_a = 0.11 * phr_filler * phr_filler
+    flex_b = -0.38 * phr_filler * phr_impact_modifier
+    flex_c = 0.03125 * phr_impact_modifier * phr_impact_modifier
+    flex_d = 1.774 * phr_filler
+    flex_e = -8.6775 * phr_impact_modifier
+    flex_f = 499.145
+    flex_mod = round(flex_a + flex_b + flex_c + flex_d + flex_e + flex_f)
+
+    #notched izod polynomial r squared = 0.852, n = 16
+    notch_a = 0.28 * phr_filler * phr_filler
+    notch_b = -0.952 * phr_filler * phr_impact_modifier
+    notch_c = 1.09375 * phr_impact_modifier * phr_impact_modifier
+    notch_d = -3.204 * phr_filler
+    notch_e = 10.0775 * phr_impact_modifier
+    notch_f = 78.405
+    notch = round(notch_a + notch_b + notch_c + notch_d + notch_e + notch_f)
+    return(flex_mod, notch)
+
+
+
 
 #main program loop
 if __name__ == "__main__":
