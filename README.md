@@ -33,7 +33,15 @@ To determine the durometer of a formula you need to pass the PHR amound of plast
 
 #More Physical Properties Prediction
 
->>>flex_clear_dinp(28)
+>>>duro, modulus, tensile, elongation, clashberg, brittle = pvc.flex_clear_dinp(28)
+>>>print(modulus, 'psi Modulus @ 100% elongation (ASTM D638)')
+>>>print(tensile, 'psi Tensile Strength (ASTM D638)')
+>>>print(elongation, '% Ultimate Elongation (ASTM D638)')
+>>>print(clashberg, 'degrees Celsius Clash-Berg (ASTM D1043 Tf @ 135,000psi)')
+>>>print(brittle, 'degrees Celsius Brittleness (ASTM D746)')
+
+This will run the remaining physical properties for flexible clear formulas with DINP plasticizer at 28 phr (Per Hundred Resin which again is not the same as pounds or %)
+
 
 That will return the remaining physical properties for the compound with 28 parts or PHR DINP Plasticizer.
 
@@ -115,9 +123,16 @@ That function takes 2 parameters.
 
 So you would pass the following to take the clear durometer reading and make it a filled reading.
 
-flex_filled(80, 20) 
+Unfortunately our formula was not clear in that it had CaCO3 calcium carbonate filler @ 20 phr (Per Hundred Resin).
 
-That would take a formula that you know to be 80 A Shore in a clear formula and will calculate out the A Shore Durometer for the same formula but with 20 PHR of Calcium Carbonate Filler.  This is some of the best data I have with an r squared of 0.992.  I'd still be cautious using it above 100 A Shore or on the D Shore scale.
+Data for flexible filled formulas is lacking other than the durometer (aka hardness).
+
+To account for the filler, simply pass the unfilled A Shore Durometer result from the flex_clear_dinp function AND the phr of the filler to the flex_filled(duro_A, phr_CaCO3) function to get what the filled durometer reading would be.
+>>>filled_duro = pvc.flex_filled(97, 20)
+>>>print(filled_duro, 'A Shore Durometer w/ filler @15s delay (ASTM D2240)')
+
+
+This is some of the best data I have with an r squared of 0.992.  I'd still be cautious using it above 100 A Shore or on the D Shore scale.
 
 Unfortunately I do not have good data for modifying the other properties in filled formulations.
 
