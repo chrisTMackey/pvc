@@ -34,10 +34,15 @@ To determine the durometer of a formula you need to pass the PHR amound of plast
 #More Physical Properties Prediction
 
 >>>duro, modulus, tensile, elongation, clashberg, brittle = pvc.flex_clear_dinp(28)
+
 >>>print(modulus, 'psi Modulus @ 100% elongation (ASTM D638)')
+
 >>>print(tensile, 'psi Tensile Strength (ASTM D638)')
+
 >>>print(elongation, '% Ultimate Elongation (ASTM D638)')
+
 >>>print(clashberg, 'degrees Celsius Clash-Berg (ASTM D1043 Tf @ 135,000psi)')
+
 >>>print(brittle, 'degrees Celsius Brittleness (ASTM D746)')
 
 This will run the remaining physical properties for flexible clear formulas with DINP plasticizer at 28 phr (Per Hundred Resin which again is not the same as pounds or %)
