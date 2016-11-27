@@ -26,8 +26,8 @@
 def main():
     """demo function to display usage"""
     
-    sample_formula = [(100, 1.4, 0.475), (28, 0.973, 0.92), (7.5, 1.008, 1.56),
-                      (0, 2.71, 0.0625)]
+    sample_formula = [(100, 1.4, 0.475), (60, 0.973, 0.92), (7.5, 1.008, 1.56),
+                      (20, 2.71, 0.0625)]
     spg, cost_wt, cost_vol = spg_costs(sample_formula)
     duro, modulus, tensile, elongation, clashberg, brittle = flex_clear_dinp(28)
     print('${} per pound'.format(cost_wt))
@@ -39,7 +39,15 @@ def main():
     print(elongation, '% Ultimate Elongation (ASTM D638)')
     print(clashberg, 'degrees Celsius Clash-Berg (ASTM D1043 Tf @ 135,000psi)')
     print(brittle, 'degrees Celsius Brittleness (ASTM D746)')
-    
+    print('*****************')
+    print('above data was for an unfilled formula')
+    print('*****************')
+    print('below is for filled formula')
+    duro_filled = flex_filled(duro, 20)
+    print(duro_filled, 'A Shore Durometer @ 15s delay (ASTM D2240)')
+
+
+
 def spg_costs(formula):
     recipe = []
     sum_phr = sum_pound_volumes = sum_costs = 0
