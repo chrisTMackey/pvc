@@ -49,6 +49,7 @@ def main():
 
 
 def spg_costs(formula):
+    """takes formula, returns specific gravity and cost per pound and volume"""
     recipe = []
     sum_phr = sum_pound_volumes = sum_costs = 0
     for ingredient in formula:
@@ -365,8 +366,6 @@ def rigid_3micron(phr_filler, phr_impact_modifier):
     notch_f = 78.405
     notch = round(notch_a + notch_b + notch_c + notch_d + notch_e + notch_f)
     return(flex_mod, notch)
-
-
 
 
 #main program loop
