@@ -17,13 +17,15 @@ Basic set of tools to cost and rapid prototype PVC formulas.
 
 That will import the pvc module and create a formula (your_formula) for demonstration purposes.
 
+Running the function will return the specific gravity, the cost per pound, and the cost per volume of the compound.  These are by far the most important calculations and they are all 99%+ accurate.  Billions of pounds of PVC compound are bought and sold using these same calculations.  Note:  These calculations work for any compound, not just PVC.  You could use these functions for polyethylene, polypropylene, or polystyrene compounds with the same degree of certainty.  You could even use them outside the polymer industry if you wanted.
+
 The formula is a list of list.  Each list is an ingredient where the first three items are formatted as quantity, specific gravity, cost of that item.
 
 Specific gravity, cost per pound, and cost per volume as calculated are very accurate.  
 
-Durometer, or hardness, is the next most common physical property.  Fortunately of the other major physical properties, it is the only one with very good statistical data.
+Durometer, or hardness, is the next most common physical property.  Fortunately of the other major physical properties, it has very good statistical data.
 
-To determine the durometer of a formula you need to pass the PHR amound of plasticizer to the flex_clear_PLASTICIZER_NAME_HERE function.
+To determine the durometer of a formula you need to pass the PHR amound of plasticizer to the flex_clear_PLASTICIZER_NAME_HERE function.  This is explained in the section below.
 
 # More Physical Properties Prediction
 
@@ -75,8 +77,6 @@ flex_clear_dup(phr)
 
 flex_clear_eso(phr)
 
->>>flex_clear_dinp(80)
-
 Here are the physical properties that the various flex_clear_PLASTICIZER_NAME will return.
 
 1.  A Shore Durometer per ASTM D2240 at 15 second delay.
@@ -88,7 +88,7 @@ Here are the physical properties that the various flex_clear_PLASTICIZER_NAME wi
 
 Only the A Shore Durometer has an r squared of over 0.900.  Fortunately, or maybe because of that, that is the most commonly discussed property of PVC compounds after the costs and specific gravity, all of which are very very accurate.
 
-Modulus, Tensile, Elongation, Clash-Berg, and Brittleness produce decent results in the range of say 40 - 80 PHR plasticizer as that is what most of the data is based on.  You get outside of that range and you are not interpolating data, you are extrapolating and you can get some bad results.  Use this data at your own risk.
+Modulus, Tensile, Elongation, Clash-Berg, and Brittleness produce decent results in the range of say 40 - 80 PHR plasticizer as that is what most of the data is based on.  Fortunately that is the same range that most flexible PVC formulas are commercially produced.  You get outside of that range and you are not interpolating data, you are extrapolating and you can get some bad results.  Use this data at your own risk. 
 
 
 
@@ -108,17 +108,13 @@ That would give you this formula.  100 PHR PVC resin, 30 PHR DINP plasticizer, 3
 Once you have your formula in PHR terms, it is easy.  Just pass the PHR of plasticizer to the function and it will return the A Shore Durometer @ 15 second delay as described in ASTM D2240 along with all the other physical properties.  
 Note from the name of the function, flex_clear_dinp(phr) in the case of DINP plasticizer, that that is for a clear formula.  If you are using filler, which the sample formula was with 20 PHR CaCO3 calcium carbonate filler, it won't be clear.  The formula will be filled and cloudy or opaque.
 
-# Accounting for Filler
+# Accounting for Filler (non clear formulas)
 To account for filler you need to use the flex_filled(duro_A, phr_CaCO3) function.  Basically figure out the durometer of the formula without the filler then pass that and the PHR of the filler to the flex_filled() and it will do all the math for you.
 
 That function takes 2 parameters.
 
 1. The durometer, or hardness, A Shore reading that you determined from the previous function.
 2.  The phr_CaCO3 parameter is PHR of CaCO3 filler, in this example it was 20 PHR calcium carbonate filler.
-
-So you would pass the following to take the clear durometer reading and make it a filled reading.
-
-Data for flexible filled formulas is lacking other than the durometer (aka hardness).
 
 To account for the filler, simply pass the unfilled A Shore Durometer result from the flex_clear_dinp function AND the phr of the filler to the flex_filled(duro_A, phr_CaCO3) function to get what the filled durometer reading would be.
 >>>filled_duro = pvc.flex_filled(97, 20)
@@ -131,10 +127,10 @@ Unfortunately I do not have good data for modifying the other properties in fill
 
 I don't expect too either.
 
-The clear flexible formulation data for the physical properties other than speicific gravity and durometer all fall between 0.500 and 0.900 r squared on their best regression model.  Decent data, but not dry lab worthy so to speak.  You add filler to those mixes and you have a bigger problem than bad clear data when you factor in the various filler sizes and particle shapes.  An experienced formulator will still find use from seeing the projected clear properties though as they will know how filler will impact each property.
+The clear flexible formulation data for the physical properties other than speicific gravity and durometer all fall between 0.500 and 0.900 r squared on their best regression model.  Decent data, but not dry lab worthy so to speak.  Currently all these properties are calculated off a linear regression, but I intend to convert some to polynomial regressions at a later point.  You add filler to those mixes and you have a bigger problem than bad clear data when you factor in the various filler sizes and particle shapes.  An experienced formulator will still find use from seeing the projected clear properties though as they will know how filler will impact each property.
 
 # D Shore Durometer
-In the industry, it is common to not use the A Shore Durometer once you get above 90 A Shore.  We switch to the D Shore Durometer.  There is very little data out there to build a D Shore Durometer data set to build a regression from.  The chart lists conversions from A to D for A Shore 100 and less.  Obviously I used that for the duro_AtoD(duro_A) functions.  For points inbetween on the charts, it is a straight linear regression point to point at the moment.
+In the industry, it is common to not use the A Shore Durometer once you get above 90 A Shore.  We switch to the D Shore Durometer.  There is very little data out there to build a D Shore Durometer data set to build a regression from.  The published chart lists conversions from A to D for A Shore 100 and less.  Obviously I used that for the duro_AtoD(duro_A) functions.  For points inbetween on the charts, it is a straight linear regression point to point at the moment.
 
 A Shore Durometer stops readings above 100, yet my tool will return readings up to nearly 120.  Why, well that is the slope of the line where it intercepts at 0 PHR plasticizer.  In theory they should all hit the same exact durometer at 0 PHR, but my formulas don't as a different intercept and slope in the Y=mX+b format fits the data better.  
 
