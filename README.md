@@ -15,17 +15,17 @@ Basic set of tools to cost and rapid prototype PVC formulas.
 
 >>>print('${} per volume'.format(cost_vol))
 
-That will import the pvc module, create a formula (your_formula).
+That will import the pvc module and create a formula (your_formula) for demonstration purposes.
 
 The formula is a list of list.  Each list is an ingredient where the first three items are formatted as quantity, specific gravity, cost of that item.
 
-Specific gravity, cost per pound, and cost per volume are very accurate.  
+Specific gravity, cost per pound, and cost per volume as calculated are very accurate.  
 
 Durometer, or hardness, is the next most common physical property.  Fortunately of the other major physical properties, it is the only one with very good statistical data.
 
 To determine the durometer of a formula you need to pass the PHR amound of plasticizer to the flex_clear_PLASTICIZER_NAME_HERE function.
 
-#More Physical Properties Prediction
+# More Physical Properties Prediction
 
 >>>duro, modulus, tensile, elongation, clashberg, brittle = pvc.flex_clear_dinp(28)
 
@@ -92,7 +92,7 @@ Modulus, Tensile, Elongation, Clash-Berg, and Brittleness produce decent results
 
 
 
-#PHR does not equal Pounds or Percent, it means Per Hundred Resin
+# PHR does not equal Pounds or Percent, it means Per Hundred Resin
 Note that PHR is not pounds and it is not percent.
 
 PHR stands for Per Hundred Resin (or per hundred rubber if that is your thing).
@@ -108,7 +108,7 @@ That would give you this formula.  100 PHR PVC resin, 30 PHR DINP plasticizer, 3
 Once you have your formula in PHR terms, it is easy.  Just pass the PHR of plasticizer to the function and it will return the A Shore Durometer @ 15 second delay as described in ASTM D2240 along with all the other physical properties.  
 Note from the name of the function, flex_clear_dinp(phr) in the case of DINP plasticizer, that that is for a clear formula.  If you are using filler, which the sample formula was with 20 PHR CaCO3 calcium carbonate filler, it won't be clear.  The formula will be filled and cloudy or opaque.
 
-#Accounting for Filler
+# Accounting for Filler
 To account for filler you need to use the flex_filled(duro_A, phr_CaCO3) function.  Basically figure out the durometer of the formula without the filler then pass that and the PHR of the filler to the flex_filled() and it will do all the math for you.
 
 That function takes 2 parameters.
@@ -133,7 +133,7 @@ I don't expect too either.
 
 The clear flexible formulation data for the physical properties other than speicific gravity and durometer all fall between 0.500 and 0.900 r squared on their best regression model.  Decent data, but not dry lab worthy so to speak.  You add filler to those mixes and you have a bigger problem than bad clear data when you factor in the various filler sizes and particle shapes.  An experienced formulator will still find use from seeing the projected clear properties though as they will know how filler will impact each property.
 
-#D Shore Durometer
+# D Shore Durometer
 In the industry, it is common to not use the A Shore Durometer once you get above 90 A Shore.  We switch to the D Shore Durometer.  There is very little data out there to build a D Shore Durometer data set to build a regression from.  The chart lists conversions from A to D for A Shore 100 and less.  Obviously I used that for the duro_AtoD(duro_A) functions.  For points inbetween on the charts, it is a straight linear regression point to point at the moment.
 
 A Shore Durometer stops readings above 100, yet my tool will return readings up to nearly 120.  Why, well that is the slope of the line where it intercepts at 0 PHR plasticizer.  In theory they should all hit the same exact durometer at 0 PHR, but my formulas don't as a different intercept and slope in the Y=mX+b format fits the data better.  
@@ -148,7 +148,7 @@ In business, you would run this software on your data and develop better models.
 
 I have vetted all the data that goes into the regression models to determine the math.  Big thanks to BASF, ExxonMobil, Dr. Dick Grossman, and Jesse Edenbaum for paving the way and publishing quality data.  Equally big thanks for years of support to Formosa Plastics and Baerlocher as well.
 
-#Formula Construction
+# Formula Construction
 
 Formulas are lists of lists.
 
@@ -162,7 +162,7 @@ The sub lists must have the following as their first three items.
 
 Note:  You can pass additional information in the list harmlessly.  Only the first three elements are needed to calculate the specific gravity and costs and anything else is ignored.  You can pass additional information and instructions in the formula if you wish.
 
-#What Next
+# What Next
 From here you can do quite a bit.
 
 You can search millions of potential formula combinations in seconds (well maybe minutes for millions; I get about 250,000 in 4 seconds or so on my PC).  
@@ -173,8 +173,13 @@ From there you can issue a few screening formulas to the lab to whip up and conf
 
 I have written the optimization routines already, just haven't uploaded them yet.  
 
-Same thing for graphing.  Right now no graphing capability is built in, but I use Mathplotlib to plot and this works with that no problem, just like any data.  
+Same thing for graphing.  Right now no graphing capability is built in, but I use Matplotlib to plot and this works with that no problem, just like any data.  
 
 I plan on implementing a graphing function for common use cases, but that isn't a high priority at the moment.
 
 Next big step is to flip it though.  These are all flexible PVC at the moment.  Rigid PVC is big business, even bigger than flexible.  Different way of formulating really in rigid.  Still doing it all with PHR's and the like, but instead of plasticizer you are looking at impact modifiers.  Instead of wondering how much filler you are using, you are wondering about how much and what particle size are you looking at.  Some of the nano filler precipitated calcium carbonates (PCC's) work as impact modifiers which leads to an interesting economics vs performance trade off that this program excels in calculating.
+
+If you look in the source code, the functions for rigid formulation are all there for various sizes and phr's of filler.  I haven't produced documentation of the functions and still want to gather more data ideally before officially releasing them.  Use them at your own risk.
+
+# Work In Progress
+Currently this is a minimally viable product.  Any formulator / python programmer could take these functions and start using them.  At the moment I am developing this into a GUI using Tkinter.  Currently it is working as another MVP (minimally viable product).  It can calculate the properties of a flexible formula.  Next I need to write a formula builder in the GUI, implement cost and specific gravity calculations in the GUI, and implement rigid formulation properties in the GUI.  
