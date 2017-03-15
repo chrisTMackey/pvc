@@ -2,7 +2,7 @@
 
 Basic set of tools to cost and rapid prototype PVC formulas.
 
-#Basic Usage:
+# Basic Usage:
 >>>import pvc
 
 >>>your_formula = [[100, 1.4, 0.5225], [60, 0.973, 0.92], [7.5, 1.008, 1.56], [20, 2.71, 0.0625]]
