@@ -118,6 +118,7 @@ That function takes 2 parameters.
 
 To account for the filler, simply pass the unfilled A Shore Durometer result from the flex_clear_dinp function AND the phr of the filler to the flex_filled(duro_A, phr_CaCO3) function to get what the filled durometer reading would be.
 >>>filled_duro = pvc.flex_filled(97, 20)
+
 >>>print(filled_duro, 'A Shore Durometer w/ filler @15s delay (ASTM D2240)')
 
 
