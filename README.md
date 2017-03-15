@@ -25,7 +25,7 @@ Specific gravity, cost per pound, and cost per volume as calculated are very acc
 
 Durometer, or hardness, is the next most common physical property.  Fortunately of the other major physical properties, it has very good statistical data.
 
-To determine the durometer of a formula you need to pass the PHR amound of plasticizer to the flex_clear_PLASTICIZER_NAME_HERE function.  This is explained in the section below.
+To determine the durometer of a formula you need to pass the PHR amount of plasticizer to the flex_clear_PLASTICIZER_NAME_HERE function.  This is explained in the section below.
 
 # More Physical Properties Prediction
 
