@@ -19,7 +19,7 @@ That will import the pvc module and create a formula (your_formula) for demonstr
 
 Running the function will return the specific gravity, the cost per pound, and the cost per volume of the compound.  These are by far the most important calculations and they are all 99%+ accurate.  Billions of pounds of PVC compound are bought and sold using these same calculations.  Note:  These calculations work for any compound, not just PVC.  You could use these functions for polyethylene, polypropylene, or polystyrene compounds with the same degree of certainty.  You could even use them outside the polymer industry if you wanted.
 
-The formula is a list of list.  Each list is an ingredient where the first three items are formatted as quantity, specific gravity, cost of that item.
+The formula is an array or list of lists.  Each list is an ingredient where the first three items are formatted as quantity, specific gravity, cost of that item.
 
 Specific gravity, cost per pound, and cost per volume as calculated are very accurate.  
 
