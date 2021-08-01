@@ -368,6 +368,43 @@ def rigid_3micron(phr_filler, phr_impact_modifier):
     return(flex_mod, notch)
 
 
+def fusion_time(phr_impact_modifier, phr_paraffin_wax, phr_CaSt2):
+    #Mathematical Modeling of Rigid PVC Formulations: Fusion Characteristics Bambrick, Hoegy, and Ferrari of Dow Chemical Canada
+    #Journal of Vinyl Technology March 1994 Vol. 16, No. 1
+    #r squared = 0.55
+    #Trial Formula
+    #pvc k = 66 100phr
+    #heat stab thermolite 137 1.5phr
+    #TiO2 10phr
+    #CaCO3 6phr
+    #paraffin wax xl165 0.5phr
+    #calcium stearate 0.9phr
+    #ester wax loxiol g32 0.5phr
+    #process aid paraloid k120n 1.0 phr
+    #range of experimentation below all in 5 buckets, baseline and 2 above / below
+    #impact modifier 4.5 - 5.5 phr
+    #paraffin wax 0.3 - 0.7 phr
+    #calcium stearate 0.7 - 1.1 phr
+    #ester wax 0.3 - 0.7 phr
+    #process aid 0.6 - 1.4 phr
+    return 32.3 - 0.94 * phr_impact_modifier + 0.68 * phr_paraffin_wax - 0.37 * phr_CaSt2
+
+def fusion_temp(phr_impact_modifier, phr_paraffin_wax, phr_CaSt2, phr_process_aid, phr_ester_wax):
+    #Mathematical Modeling of Rigid PVC Formulations: Fusion Characteristics Bambrick, Hoegy, and Ferrari of Dow Chemical Canada
+    #Journal of Vinyl Technology March 1994 Vol. 16, No. 1
+    #r squared = 0.75
+    return 176 - 0.58 * phr_impact_modifier + 0.25 * phr_paraffin_wax - 0.44 * phr_CaSt2 - 0.29 * phr_process_aid - 0.25 * phr_paraffin_wax * phr_process_aid + 0.375 * phr_ester_wax * phr_process_aid
+
+def fusion_torque(phr_impact_modifier, phr_paraffin_wax, phr_process_aid, phr_ester_wax):
+    #Mathematical Modeling of Rigid PVC Formulations: Fusion Characteristics Bambrick, Hoegy, and Ferrari of Dow Chemical Canada
+    #Journal of Vinyl Technology March 1994 Vol. 16, No. 1
+    #r squared = 0.75
+    #Mackey note: this paper lists the coefficient for ester wax here as -8.6 and as -19.  The -19 figure comes from a summary chart with rounding issues so I am treating it being most likely a typo on their end, but I could be interpreting that typo in reverse perhaps
+    return 2575 + 26.9 * phr_impact_modifier - 59.5 * phr_paraffin_wax - 8.6 * phr_ester_wax + 31.5 * phr_process_aid
+
+
+
+
 #main program loop
 if __name__ == "__main__":
     main()
