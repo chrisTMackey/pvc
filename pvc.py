@@ -368,6 +368,26 @@ def rigid_3micron(phr_filler, phr_impact_modifier):
     return(flex_mod, notch)
 
 
+#This fusion time data from the Hatt paper does not seem to work, will need to investigate further but seems to be an issue with the paper, not my end
+#def fusion_time_Hatt(phr_CaCO3, phr_trial_filler, phr_CaSt, phr_paraffin_wax, phr_trial_lube):
+    #Formulating For Rigid PVC Using Multivariate Analysis
+    #Brian W. Hatt of Elkem Chemicals Ltd. (UK)
+    #Journal of Vinyl Technology September 1984 Vol. 6, No. 3
+    #returns fusion time in minutes
+    #Formula was 100 PVC; 0.6 Tin Stabilizer, and 1.0 TiO2 base
+    #then varied 5 ingredients
+    #filler was Vicron 15-15 and range was 20 - 80 phr
+    #trial filler is unlisted range was 0 - 20 phr
+    #calcium stearate CaSt had a range of 1 - 4 phr
+    #paraffin wax was Hoechst 165 wax and had a range of 1 - 2 phr
+    #trial lube is unlisted and had a range of 0 - 0.8phr
+    #33 formulas ran for 5 parameters
+    #Brabender Conditions Charge Volume = 47ml; Bowl Temp = 185C; Rotor Speed = 32rpm; Ram Weight = 5kg
+    #no r squared data, only time data
+    #return -0.3508 + .0237 * phr_CaCO3 + 0.0606 * phr_trial_filler - 0.6935 * phr_CaSt + 0.1431 * phr_CaSt * phr_CaSt + 2.8353 * phr_paraffin_wax + 0.007 * phr_CaCO3 * phr_trial_filler - 0.133 * phr_CaCO3 * phr_paraffin_wax - 0.0063 * phr_CaCO3 * phr_trial_lube - 0.117 * phr_trial_filler * phr_CaSt - 0.05 * phr_trial_filler * phr_paraffin_wax - 0.563 * phr_trial_filler * phr_trial_lube - 0.3 * phr_CaSt * phr_paraffin_wax + 0.625 * phr_paraffin_wax * phr_trial_lube
+
+
+
 def fusion_time(phr_impact_modifier, phr_paraffin_wax, phr_CaSt2):
     #Mathematical Modeling of Rigid PVC Formulations: Fusion Characteristics Bambrick, Hoegy, and Ferrari of Dow Chemical Canada
     #Journal of Vinyl Technology March 1994 Vol. 16, No. 1
