@@ -403,6 +403,30 @@ def fusion_torque(phr_impact_modifier, phr_paraffin_wax, phr_process_aid, phr_es
     return 2575 + 26.9 * phr_impact_modifier - 59.5 * phr_paraffin_wax - 8.6 * phr_ester_wax + 31.5 * phr_process_aid
 
 
+def foam_density1(phr_azo, phr_sbc, phr_pa01):
+    #Statistical Experimental Design to Optimize Formulations for Foam Vinyl Applications
+    #Journal of Vinyl & Additive Technology, June 1999 Vol. 5, No. 2
+    #Noreen L. Thomas and Ray Harvey of European Vinyls Corporation (UK) Ltd.
+    #azo = azodicarbonamide blowing agent
+    #sbc = sodium bicarbonate
+    #pa01 and pa02 are process aid 1 and 2 that were both evaluated.
+    #pa01 is medium molecular weight while pa02 is high molecular weight process aid
+    #ranges
+    #azo 0, 0.15, 0.3
+    #sbc 0.8, 1.6, 2.4
+    #pa either 4 ,6, 8
+    #Mackey notes: formula also has two variables for filler type that weren't significant, perhaps not enough range there and needed precipitated calcium carbonate as an option
+    #no mention of unfoamed density so not much to go off, can estimate one from components perhaps
+    #output is in g/cc not a percentage!!!!!!
+    #they included the raw data, should probably rerun and take out the half charge reductions in phr like they did
+    return 0.462 - 0.362 * (phr_azo - 0.15) - 0.116 * (phr_sbc - 1.6) - 0.046 * (phr_pa01 - 6.0) + 0.557 * (phr_azo - 0.15) * (phr_sbc - 1.6) + 3.348 * (phr_azo - 0.15) * (phr_azo - 0.15) + 0.071 * (phr_sbc - 1.6) * (phr_sbc - 1.6) + 0.0325 * phr_pa01
+
+def foam_density2(phr_azo, phr_sbc, phr_pa02):
+    #same as foam_density1, only difference is process aid is higher molecular weight than in foam_density1()
+    return 0.462 - 0.362 * (phr_azo - 0.15) - 0.116 * (phr_sbc - 1.6) - 0.046 * (phr_pa02 - 6.0) + 0.557 * (phr_azo - 0.15) * (phr_sbc - 1.6) + 3.348 * (phr_azo - 0.15) * (phr_azo - 0.15) + 0.071 * (phr_sbc - 1.6) * (phr_sbc - 1.6) - 0.0325 * phr_pa02
+
+
+
 
 
 #main program loop
